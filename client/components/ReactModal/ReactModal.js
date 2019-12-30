@@ -1,11 +1,27 @@
+import { useEffect, useState } from 'react'
 import ReactModal from 'react-modal'
+import axios from 'axios'
 
 import './ReactModal.css'
 
 const Modal = ({ isOpen, toggleModal }) => {
+	const [newPost, setNewPost] = useState('')
 	const postSecret = () => {
 		toggleModal()
 	}
+
+	const handleInputChange = e => {
+		setNewPost(e.target.value)
+	}
+
+	const postNewSecret = () => {
+		axios.post('http://localhost:4000/api/secret', {
+			secret: newPost
+		})
+		toggleModal()
+
+	}
+
 	return (
 		<ReactModal
 			isOpen={
@@ -31,7 +47,9 @@ const Modal = ({ isOpen, toggleModal }) => {
 						padding: '0 2rem',
 						width: '90%',
 						outline: 0,
-						
+						borderRadius: '5px',
+						boxShadow:
+							'0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
 					},
 				}
 				/* Object indicating styles to be used for the modal.
@@ -132,8 +150,16 @@ const Modal = ({ isOpen, toggleModal }) => {
 				>
 					&times;
 				</div>
-				<input type="text" placeholder="Let it all out..." className="w-11/12 outline-none h-40"/>
-				<button className="block bg-blue-600 rounded p-2 my-4" onClick={postSecret}>
+				<input
+					type="text"
+					placeholder="Let it all out..."
+					className="w-11/12 outline-none h-40"
+					onChange={handleInputChange}
+				/>
+				<button
+					className="block text-white bg-blue-600 rounded p-2 my-4"
+					onClick={postNewSecret}
+				>
 					Post
 				</button>
 			</div>
