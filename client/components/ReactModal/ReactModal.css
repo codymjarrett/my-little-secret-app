@@ -1,0 +1,6 @@
+.close {
+    display: inline;
+    position: absolute;
+    right: 1rem;
+    font-size: 2rem;
+}
