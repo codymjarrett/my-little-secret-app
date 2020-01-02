@@ -2,7 +2,7 @@ import ReactModal from 'react-modal'
 
 import './ReactModal.css'
 
-const Modal = ({ isOpen, toggleModal, handleInputChange,postNewSecret }) => {
+const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
 	// const postSecret = () => {
 	// 	toggleModal()
 	// }
@@ -145,7 +145,7 @@ const Modal = ({ isOpen, toggleModal, handleInputChange,postNewSecret }) => {
 				/>
 				<button
 					className="block text-white bg-blue-600 rounded p-2 my-4"
-					onClick={postNewSecret}
+					onClick={sendNewPost}
 				>
 					Post
 				</button>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import fetch from 'unfetch'
-import useSWR, { mutate, trigger } from 'swr'
+import useSWR, { trigger } from 'swr'
 import axios from 'axios'
 
 import ReactModal from './ReactModal/ReactModal'
@@ -15,30 +15,24 @@ const fetcher = async () => {
 
 const Posts = ({ isOpen, toggleModal }) => {
 	const { data, error } = useSWR('/api/secret', fetcher)
-	// const [postData, setPostsData] = useState(null)
-	const [newPost, setNewPost] = useState('')
+	const [input, setInput] = useState('')
+    let postings
 
 	const handleInputChange = e => {
-		setNewPost(e.target.value)
+		setInput(e.target.value)
     }
     
-    
-	
-
-	const postNewSecret = () => {
+    const sendNewPost = () => {
 		axios.post('http://localhost:4000/api/secret', {
-			secret: newPost,
+			secret: input,
         }).then(() => trigger('/api/secret'))
-        toggleModal()
-        
+        toggleModal() 
 	}
 
-	let renderedData
-
-	if (error) renderedData = <div>Failed to load</div>
-	if (!data) renderedData = <div>Loading...</div>
+	if (error) postings = <div>Failed to load</div>
+	if (!data) postings = <div>Loading...</div>
 	else
-		renderedData = (
+		postings = (
 			<div>
 				<ul>
 					{data.posts.map(({ secret, _id }) => {
@@ -62,10 +56,10 @@ const Posts = ({ isOpen, toggleModal }) => {
 
 	return (
 		<div>
-			{renderedData}
+			{ postings }
 			<ReactModal
 				handleInputChange={handleInputChange}
-				postNewSecret={postNewSecret}
+				sendNewPost={sendNewPost}
 				isOpen={isOpen}
 				toggleModal={toggleModal}
 			/>
