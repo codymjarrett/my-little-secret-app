@@ -1,26 +1,13 @@
-import { useEffect, useState } from 'react'
 import ReactModal from 'react-modal'
-import axios from 'axios'
 
 import './ReactModal.css'
 
-const Modal = ({ isOpen, toggleModal }) => {
-	const [newPost, setNewPost] = useState('')
-	const postSecret = () => {
-		toggleModal()
-	}
+const Modal = ({ isOpen, toggleModal, handleInputChange,postNewSecret }) => {
+	// const postSecret = () => {
+	// 	toggleModal()
+	// }
 
-	const handleInputChange = e => {
-		setNewPost(e.target.value)
-	}
 
-	const postNewSecret = () => {
-		axios.post('http://localhost:4000/api/secret', {
-			secret: newPost
-		})
-		toggleModal()
-
-	}
 
 	return (
 		<ReactModal
@@ -57,7 +44,7 @@ const Modal = ({ isOpen, toggleModal }) => {
      See the `Styles` section for more details. */
 			}
 			contentLabel={
-				'Example Modal'
+				'Post Secret here'
 				/* String indicating how the content container should be announced
      to screenreaders */
 			}
@@ -72,7 +59,7 @@ const Modal = ({ isOpen, toggleModal }) => {
      See the `Styles` section for more details. */
 			}
 			id={
-				'some-id'
+				'modal-content'
 				/* String id to be applied to the content div. */
 			}
 			className={
