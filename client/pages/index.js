@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link';
 
 /* includes tailwind here */
 import '../styles/main.css'
 
-import Head from './../components/Head'
-import SecretButton from './../components/SecretButton'
-import Posts from '../components/Posts'
-
+import Layout from '../components/Layout'
 
 const Home = () => {
-	const [isOpen, setIsOpen] = useState(false)
-
-	const toggleModal = () => {
-		setIsOpen(!isOpen)
-	}
-
 	return (
-		<div>
-			<Head />
-			<SecretButton toggleModal={toggleModal} />
-			<Posts isOpen={isOpen} toggleModal={toggleModal}/>
-		</div>
+		<Layout>
+			<div style={{ display: 'flex', justifyContent: 'space-around' }}>
+			<Link href="/userPage">
+				<a>Twitter</a>
+
+			</Link>
+				<button>Facebook</button>
+			</div>
+		</Layout>
 	)
 }
 

@@ -1,6 +1,8 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const cors = require('cors')
+
 require('dotenv').config()
 const routes = require('./routes');
 
@@ -11,6 +13,7 @@ const uri = `mongodb+srv://codyjcodes:${dbPassword}@cluster0-o0duq.mongodb.net/t
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 app.use(morgan('short'))
 app.use(routes)
 

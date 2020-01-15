@@ -1,13 +1,47 @@
 import ReactModal from 'react-modal'
+import { useEffect } from 'react'
 
 import './ReactModal.css'
+import useWindowDimensions from '../useWindowDimensions';
+
+let defaultContentStyles = {
+	position: 'absolute',
+	backgroundColor: 'rgba(255, 255, 255, 1)',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	padding: '0 2rem',
+	width: '90%',
+	outline: 0,
+	borderRadius: '5px',
+	boxShadow:
+		'0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+}
+
+let defaultOverlayStyles ={
+	position: 'fixed',
+	top: 0,
+	left: 0,
+	right: 0,
+	bottom: 0,
+	backgroundColor: 'rgba(236, 236, 236, .75)',
+}
+
+
+
 
 const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
-	// const postSecret = () => {
-	// 	toggleModal()
-	// }
+	const { width, height } = useWindowDimensions()
 
+	let _width = width > 1052 ? { width: '50%'} : { width: '90%'}
+	defaultContentStyles = Object.assign(defaultContentStyles, _width)
+	
+	useEffect(() => {
+		console.log(width)
 
+	})
+
+	
 
 	return (
 		<ReactModal
@@ -17,27 +51,8 @@ const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
 			}
 			style={
 				{
-					overlay: {
-						position: 'fixed',
-						top: 0,
-						left: 0,
-						right: 0,
-						bottom: 0,
-						backgroundColor: 'rgba(236, 236, 236, .75)',
-					},
-					content: {
-						position: 'absolute',
-						backgroundColor: 'rgba(255, 255, 255, 1)',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-						padding: '0 2rem',
-						width: '90%',
-						outline: 0,
-						borderRadius: '5px',
-						boxShadow:
-							'0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-					},
+					overlay: defaultOverlayStyles,
+					content: defaultContentStyles,
 				}
 				/* Object indicating styles to be used for the modal.
      It has two keys, `overlay` and `content`.
@@ -62,8 +77,7 @@ const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
 				'modal-content'
 				/* String id to be applied to the content div. */
 			}
-			className={
-				'ReactModal__Content'
+			className={'ReactModal__Content'
 				/* String className to be applied to the modal content.
      See the `Styles` section for more details. */
 			}

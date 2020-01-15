@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import ReactModal from './ReactModal/ReactModal'
 
+
 const fetcher = async () => {
 	const data = await fetch('http://localhost:4000/api/secret')
 	const json = await data.json()
@@ -16,6 +17,8 @@ const fetcher = async () => {
 const Posts = ({ isOpen, toggleModal }) => {
 	const { data, error } = useSWR('/api/secret', fetcher)
 	const [input, setInput] = useState('')
+
+
     let postings
 
 	const handleInputChange = e => {

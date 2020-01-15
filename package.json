@@ -1,0 +1,15 @@
+{
+  "name": "secret-fs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:codymjcodes/my-little-secret-app.git",
+  "author": "Hero's Dad <cody.monta@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "(cd client && yarn run dev) & yarn run start:server",
+    "start:server": "cd server && node server.js"
+  },
+  "dependencies": {
+    "react-router-dom": "^5.1.2"
+  }
+}
