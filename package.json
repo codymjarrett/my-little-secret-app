@@ -6,10 +6,11 @@
   "author": "Hero's Dad <cody.monta@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "(cd client && yarn run dev) & yarn run start:server",
+    "start": "(cd client && npm run dev) & npm run start:server",
     "start:server": "cd server && node server.js"
   },
   "dependencies": {
     "react-router-dom": "^5.1.2"
-  }
+  },
+  "devDependencies": {}
 }

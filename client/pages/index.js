@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Link from 'next/link';
+// import Link from 'next/link';
 
 /* includes tailwind here */
 import '../styles/main.css'
@@ -10,11 +10,11 @@ const Home = () => {
 	return (
 		<Layout>
 			<div style={{ display: 'flex', justifyContent: 'space-around' }}>
-			<Link href="/userPage">
+			{/* <Link href="/userPage">
 				<a>Twitter</a>
 
 			</Link>
-				<button>Facebook</button>
+				<button>Facebook</button> */}
 			</div>
 		</Layout>
 	)
