@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react'
-// import Link from 'next/link';
+
 
 /* includes tailwind here */
 import '../styles/main.css'
 
 import Layout from '../components/Layout'
+import Posts from '../components/Posts'
 
 const Home = () => {
 	return (
 		<Layout>
 			<div style={{ display: 'flex', justifyContent: 'space-around' }}>
-			{/* <Link href="/userPage">
-				<a>Twitter</a>
-
-			</Link>
-				<button>Facebook</button> */}
+			<Posts />
 			</div>
 		</Layout>
 	)

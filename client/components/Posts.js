@@ -36,7 +36,7 @@ const Posts = ({ isOpen, toggleModal }) => {
 	if (!data) postings = <div>Loading...</div>
 	else
 		postings = (
-			<div>
+			<div className="mt-16">
 				<ul>
 					{data.posts.map(({ secret, _id }) => {
 						return (

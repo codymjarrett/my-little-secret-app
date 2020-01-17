@@ -1,4 +1,4 @@
-import firebase from './firebase';
-import * as auth from './auth';
+// import firebase from './firebase';
+// import { facebookProvider } from './auth'
 
-export { firebase, auth };
+// export { firebase, facebookProvider };
