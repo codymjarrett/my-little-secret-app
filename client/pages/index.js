@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react'
 
 
-/* includes tailwind here */
-import '../styles/main.css'
 
-import Layout from '../components/Layout'
+
 import Posts from '../components/Posts'
 
 const Home = () => {
 	return (
-		<Layout>
 			<div style={{ display: 'flex', justifyContent: 'space-around' }}>
-			<Posts />
+				<Posts />
 			</div>
-		</Layout>
 	)
 }
 

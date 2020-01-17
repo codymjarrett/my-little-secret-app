@@ -1,26 +1,29 @@
 import Layout from '../components/Layout'
 import Button from '../components/Button'
 
-import { useEffect } from 'react'
+import firebase from '../components/Firebase/'
 
-import firebase from 'firebase/app'
-import firebaseCredentials from '../firebase/firebase'
+// import { FirebaseContext } from '../components/Firebase'
+
+import { useEffect } from 'react'
+// import { firebase } from 'firebase/app'
 
 const SignInPage = () => {
-	useEffect(() => {
-		firebase.initializeApp(firebaseCredentials)
-		console.log(firebase)
-	})
 
-	const signInWithPopup = provider => {
+
+	const signup = provider => {
+		let signinProvider = provider === 'facebook' ? new firebase.auth.FacebookAuthProvider() : new firebase.auth.TwitterAuthProvider()
+		
 		firebase
 			.auth()
-			.signInWithPopup(provider)
+			.signInWithPopup(signinProvider)
 			.then(function(result) {
 				// This gives you a Facebook Access Token. You can use it to access the Facebook API.
 				var token = result.credential.accessToken
+				console.log(token)
 				// The signed-in user info.
 				var user = result.user
+				console.log(user)
 				// ...
 			})
 			.catch(function(error) {
@@ -35,24 +38,23 @@ const SignInPage = () => {
 			})
 	}
 	return (
-		<Layout>
-			<div style={{ display: 'flex', justifyContent: 'space-around' }}>
-				<h2>Login using the following:</h2>
-				<div>
-					<Button
-						content="Twitter"
-						buttonStyles="longYellowButton"
-						svg="/svg/twitter.svg"
-					></Button>
-					<Button
-						onClick={() => signInWithPopup(firebaseApp)}
-						content="Facebook"
-						buttonStyles="longYellowButton"
-						svg="/svg/facebook.svg"
-					></Button>
-				</div>
+		<div style={{ display: 'flex', justifyContent: 'space-around' }}>
+			<h2>Login using the following:</h2>
+			<div>
+				<Button
+					handleOnClick={signup('twitter')}
+					content="Twitter"
+					buttonStyles="longYellowButton"
+					svg="/svg/twitter.svg"
+				></Button>
+				<Button
+					handleOnClick={signup('facebook')}
+					content="Facebook"
+					buttonStyles="longYellowButton"
+					svg="/svg/facebook.svg"
+				></Button>
 			</div>
-		</Layout>
+		</div>
 	)
 }
 
