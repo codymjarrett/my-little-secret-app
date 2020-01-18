@@ -4,10 +4,13 @@ import React, { useState, useEffect } from 'react'
 
 
 import Posts from '../components/Posts'
+import SecretButton from '../components/SecretButton';
 
-const Home = () => {
+const Home = ({firesbaseInitialized}) => {
+	
 	return (
-			<div style={{ display: 'flex', justifyContent: 'space-around' }}>
+			<div>
+				{ firesbaseInitialized && <SecretButton />}
 				<Posts />
 			</div>
 	)

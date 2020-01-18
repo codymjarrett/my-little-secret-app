@@ -7,9 +7,11 @@ const Button = ({ content, href = '', svg, buttonStyles, handleOnClick }) => {
 		return `${themeObj['baseStyles']} ${themeObj[buttonStyles]}`
 	}
 
+	
+
 	return (
 		<Link href={href}>
-			<button className={styleMapping(buttonStyles)} onClick={handleOnClick}>
+			<button onClick={handleOnClick} className={styleMapping(buttonStyles)}>
 				<div className="flex justify-center">
 					{svg && <img src={svg} alt={content} className="w-8 h-8"/>}
 					<span className={svg && 'ml-4'}>{content}</span>

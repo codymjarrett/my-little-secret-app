@@ -3,16 +3,19 @@ import Button from '../components/Button'
 
 import firebase from '../components/Firebase/'
 
-// import { FirebaseContext } from '../components/Firebase'
-
-import { useEffect } from 'react'
-// import { firebase } from 'firebase/app'
-
 const SignInPage = () => {
 
-
 	const signup = provider => {
-		let signinProvider = provider === 'facebook' ? new firebase.auth.FacebookAuthProvider() : new firebase.auth.TwitterAuthProvider()
+		let signinProvider 
+		
+		switch(provider){
+			case 'facebook':
+				signinProvider =  new firebase.auth.FacebookAuthProvider()
+			break;
+			case 'twitter':
+				signinProvider = new firebase.auth.TwitterAuthProvider()
+			break;
+		}
 		
 		firebase
 			.auth()
@@ -42,13 +45,13 @@ const SignInPage = () => {
 			<h2>Login using the following:</h2>
 			<div>
 				<Button
-					handleOnClick={signup('twitter')}
+					handleOnClick={() => signup('twitter')}
 					content="Twitter"
 					buttonStyles="longYellowButton"
 					svg="/svg/twitter.svg"
 				></Button>
 				<Button
-					handleOnClick={signup('facebook')}
+					handleOnClick={() => signup('facebook')}
 					content="Facebook"
 					buttonStyles="longYellowButton"
 					svg="/svg/facebook.svg"
