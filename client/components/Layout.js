@@ -1,17 +1,23 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import Head from './Head'
 import Nav from './Nav'
 
-const Layout = ({ children, firesbaseInitialized }) => {
-    useEffect(() => {}, [firesbaseInitialized])
+import { FirebaseContext } from './Firebase'
 
-	return (
-		<div className="container xl:w-6/12 m-auto">
-			<Nav firesbaseInitialized={firesbaseInitialized}/>
-			<Head />
-			{ children }
-		</div>
-	)
-}
+const Layout = ({ children }) => (
+	<FirebaseContext.Consumer>
+		{firebaseAuth => {
+			console.log('layout', firebaseAuth)
+			return (
+				<div className="container xl:w-6/12 m-auto">
+					<Nav firebaseAuth={firebaseAuth}/>
+					<Head />
+					{children}
+				</div>
+			)
+		}}
+	</FirebaseContext.Consumer>
+)
+// useEffect(() => {}, [firesbaseInitialized])
 
 export default Layout

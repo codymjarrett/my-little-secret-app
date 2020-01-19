@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import App from 'next/app'
 
-import firebase from '../components/Firebase/'
+import firebase, { FirebaseContext } from '../components/Firebase/'
 
 /* includes tailwind here */
 import '../styles/main.css'
@@ -11,21 +11,24 @@ import Layout from '../components/Layout'
 // import withAuthentication from '../components/containers/withAuthentication'
 
 function MyApp({ Component, pageProps }) {
-	const [firesbaseInitialized, setFirebaseInitialed] = useState({})
+	const [firebaseInitialized, setFirebaseInitialed] = useState({})
 
 	const isInitialized = () => {
 		return new Promise(resolve => {
 			firebase.auth().onAuthStateChanged(resolve)
 		})
 	}
+
 	useEffect(() => {
 		isInitialized().then(val => setFirebaseInitialed(val))
 	})
 
 	return (
-		<Layout firesbaseInitialized={firesbaseInitialized}>
-			<Component {...pageProps} firesbaseInitialized={firesbaseInitialized} />
-		</Layout>
+		<FirebaseContext.Provider value={firebaseInitialized}>
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
+		</FirebaseContext.Provider>
 	)
 }
 

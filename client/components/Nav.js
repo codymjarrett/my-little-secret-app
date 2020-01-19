@@ -3,22 +3,23 @@ import Button from './Button'
 import firebase from './Firebase'
 import Link from 'next/link'
 
-const Nav = ({ firesbaseInitialized }) => {
+const Nav = ({ firebaseAuth }) => {
 	const [currentUser, setCurrentUser] = useState({})
-	
-	useEffect(() => {
-		setCurrentUser(firesbaseInitialized)
-	}, [firesbaseInitialized])
 
-	const userLoggedIn = currentUser ? true : false
-	const navButtonContent = userLoggedIn ? 'Logout' : 'Login'
+	let userLoggedIn = currentUser ? true : false
+	let navButtonContent = userLoggedIn ? 'Logout' : 'Login'
+	console.log('testing out', firebaseAuth)
+
+	useEffect(() => {
+		setCurrentUser(firebaseAuth)
+		console.log('testing in effect', firebaseAuth)
+	}, [firebaseAuth])
+	
 
 	const logUserOut = () => {
-		if (currentUser) {
-				return firebase.auth().signOut()
-			
-		}
+			return firebase.auth().signOut()
 	}
+
 	return (
 		<nav className="flex justify-between m-4">
 			<div>
@@ -30,12 +31,15 @@ const Nav = ({ firesbaseInitialized }) => {
 				<img className="w-16 h-16" src="/svg/logo.svg" alt="logo" />
 			</div>
 			<div>
-				<Button
-					handleOnClick={() => logUserOut}
-					content={navButtonContent}
-					href="/signIn"
-					buttonStyles="greenButton"
-				/>
+				{currentUser ? (
+					<button onClick={logUserOut}>Logout</button>
+				) : (
+					<Button
+						content={navButtonContent}
+						href="/signIn"
+						buttonStyles="greenButton"
+					/>
+				)}
 			</div>
 		</nav>
 	)
