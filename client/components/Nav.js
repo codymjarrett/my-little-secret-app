@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Button from './Button'
 import firebase from './Firebase'
+import { FirebaseAuthContext } from '../components/Firebase'
 import Link from 'next/link'
 
-const Nav = ({ firebaseAuth }) => {
-	const [currentUser, setCurrentUser] = useState({})
+const Nav = () => {
+	// const [currentUser, setCurrentUser] = useState()
 
-	let userLoggedIn = currentUser ? true : false
+	const authContext = useContext(FirebaseAuthContext)
+
+	let userLoggedIn = authContext === null ? false : true
 	let navButtonContent = userLoggedIn ? 'Logout' : 'Login'
-	console.log('testing out', firebaseAuth)
 
 	useEffect(() => {
-		setCurrentUser(firebaseAuth)
-		console.log('testing in effect', firebaseAuth)
-	}, [firebaseAuth])
-	
+		console.log('useeffect ran')
+		console.log('auth', authContext)
+		console.log('firebase', firebase.auth())
+	})
 
 	const logUserOut = () => {
-			return firebase.auth().signOut()
+		return firebase.auth().signOut()
 	}
 
 	return (
@@ -31,8 +33,10 @@ const Nav = ({ firebaseAuth }) => {
 				<img className="w-16 h-16" src="/svg/logo.svg" alt="logo" />
 			</div>
 			<div>
-				{currentUser ? (
-					<button onClick={logUserOut}>Logout</button>
+				{userLoggedIn ? (
+					<Link href="/">
+						<button onClick={logUserOut}>Logout</button>
+					</Link>
 				) : (
 					<Button
 						content={navButtonContent}

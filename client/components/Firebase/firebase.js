@@ -9,12 +9,6 @@ try {
   firebase.initializeApp(config)
 }
 
-// class Firebase {
-//   constructor(){
-//     app.initializeApp(config)
-//   }
-// }
 
 export default firebase
 
-// export const facebookProvider = new app.auth.FacebookAuthProvider()

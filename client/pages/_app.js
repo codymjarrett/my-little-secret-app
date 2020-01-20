@@ -2,16 +2,15 @@
 import React, { useState, useEffect } from 'react'
 import App from 'next/app'
 
-import firebase, { FirebaseContext } from '../components/Firebase/'
+import firebase, { FirebaseAuthContext } from '../components/Firebase/'
 
 /* includes tailwind here */
 import '../styles/main.css'
 
 import Layout from '../components/Layout'
-// import withAuthentication from '../components/containers/withAuthentication'
 
 function MyApp({ Component, pageProps }) {
-	const [firebaseInitialized, setFirebaseInitialed] = useState({})
+	const [firebaseAuthInitialized, setFirebaseAuthInitialed] = useState({})
 
 	const isInitialized = () => {
 		return new Promise(resolve => {
@@ -20,15 +19,15 @@ function MyApp({ Component, pageProps }) {
 	}
 
 	useEffect(() => {
-		isInitialized().then(val => setFirebaseInitialed(val))
+		isInitialized().then(res => setFirebaseAuthInitialed(res))
 	})
 
 	return (
-		<FirebaseContext.Provider value={firebaseInitialized}>
+		<FirebaseAuthContext.Provider value={firebaseAuthInitialized}>
 			<Layout>
 				<Component {...pageProps} />
 			</Layout>
-		</FirebaseContext.Provider>
+		</FirebaseAuthContext.Provider>
 	)
 }
 

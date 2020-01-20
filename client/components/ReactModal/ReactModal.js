@@ -1,8 +1,7 @@
 import ReactModal from 'react-modal'
 import { useEffect } from 'react'
-
 import './ReactModal.css'
-import useWindowDimensions from '../useWindowDimensions';
+import useWindowDimensions from '../useWindowDimensions'
 
 let defaultContentStyles = {
 	position: 'absolute',
@@ -18,7 +17,7 @@ let defaultContentStyles = {
 		'0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
 }
 
-let defaultOverlayStyles ={
+let defaultOverlayStyles = {
 	position: 'fixed',
 	top: 0,
 	left: 0,
@@ -27,21 +26,15 @@ let defaultOverlayStyles ={
 	backgroundColor: 'rgba(236, 236, 236, .75)',
 }
 
-
-
-
-const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
+const Modal = ({ isOpen, toggleModal, onInputChange, onSendNewPost }) => {
 	const { width, height } = useWindowDimensions()
 
-	let _width = width > 1052 ? { width: '50%'} : { width: '90%'}
+	let _width = width > 1052 ? { width: '50%' } : { width: '90%' }
 	defaultContentStyles = Object.assign(defaultContentStyles, _width)
-	
+
 	useEffect(() => {
 		console.log(width)
-
 	})
-
-	
 
 	return (
 		<ReactModal
@@ -77,7 +70,8 @@ const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
 				'modal-content'
 				/* String id to be applied to the content div. */
 			}
-			className={'ReactModal__Content'
+			className={
+				'ReactModal__Content'
 				/* String className to be applied to the modal content.
      See the `Styles` section for more details. */
 			}
@@ -155,11 +149,11 @@ const Modal = ({ isOpen, toggleModal, handleInputChange, sendNewPost }) => {
 					type="text"
 					placeholder="Let it all out..."
 					className="w-11/12 outline-none h-40"
-					onChange={handleInputChange}
+					onChange={onInputChange}
 				/>
 				<button
 					className="block text-white bg-blue-600 rounded p-2 my-4"
-					onClick={sendNewPost}
+					onClick={onSendNewPost}
 				>
 					Post
 				</button>

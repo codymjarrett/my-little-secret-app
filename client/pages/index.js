@@ -1,23 +1,53 @@
-import React, { useState, useEffect } from 'react'
-
-import { FirebaseContext } from '../components/Firebase'
+import React, { useState, useContext } from 'react'
+import { FirebaseAuthContext } from '../components/Firebase'
+import axios from 'axios'
+import { trigger } from 'swr'
 
 import Posts from '../components/Posts'
 import SecretButton from '../components/SecretButton'
+import Modal from '../components/ReactModal/ReactModal'
 
-const Home = () => (
-	<FirebaseContext.Consumer>
-		{firebaseAuth => {
-			return (
-				<div>
-					{JSON.stringify(firebaseAuth, null, 2)}
-					{firebaseAuth && <SecretButton />}
-					<Posts />
-				</div>
-			)
-		}}
-	</FirebaseContext.Consumer>
-)
+
+const Home = () => {
+	const [isOpen, setIsOpen] = useState(false)
+	const [modalInput, setModalInput] = useState('')
+
+	const toggleModal = () => {
+		console.log('clicked')
+		setIsOpen(!isOpen)
+	}
+
+	const handleInputChange = e => {
+		setModalInput(e.target.value)
+	}
+	const sendNewPost = () => {
+		axios
+			.post('http://localhost:4000/api/secret', {
+				secret: modalInput,
+			})
+			.then(() => trigger('/api/secret'))
+		toggleModal()
+	}
+
+	const firebaseAuth = useContext(FirebaseAuthContext)
+	return (
+		<div>
+			{/* {JSON.stringify(firebaseAuth, null, 2)} */}
+			{firebaseAuth && (
+				<>
+					<SecretButton onButtonClick={toggleModal} />
+					<Modal
+						isOpen={isOpen}
+						toggleModal={toggleModal}
+						onInputChange={handleInputChange}
+						onSendNewPost={sendNewPost}
+					/>
+				</>
+			)}
+			<Posts />
+		</div>
+	)
+}
 
 /* 
 Keeping this here for future reference. Use this if you want initial data on build

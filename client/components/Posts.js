@@ -3,8 +3,7 @@ import fetch from 'unfetch'
 import useSWR, { trigger } from 'swr'
 import axios from 'axios'
 
-import ReactModal from './ReactModal/ReactModal'
-
+// import ReactModal from './ReactModal/ReactModal'
 
 const fetcher = async () => {
 	const data = await fetch('http://localhost:4000/api/secret')
@@ -16,20 +15,18 @@ const fetcher = async () => {
 
 const Posts = ({ isOpen, toggleModal }) => {
 	const { data, error } = useSWR('/api/secret', fetcher)
-	const [input, setInput] = useState('')
 
+	let postings
 
-    let postings
+	
 
-	const handleInputChange = e => {
-		setInput(e.target.value)
-    }
-    
-    const sendNewPost = () => {
-		axios.post('http://localhost:4000/api/secret', {
-			secret: input,
-        }).then(() => trigger('/api/secret'))
-        toggleModal() 
+	const sendNewPost = () => {
+		axios
+			.post('http://localhost:4000/api/secret', {
+				secret: input,
+			})
+			.then(() => trigger('/api/secret'))
+		toggleModal()
 	}
 
 	if (error) postings = <div>Failed to load</div>
@@ -59,13 +56,13 @@ const Posts = ({ isOpen, toggleModal }) => {
 
 	return (
 		<div>
-			{ postings }
-			<ReactModal
+			{postings}
+			{/* <ReactModal
 				handleInputChange={handleInputChange}
 				sendNewPost={sendNewPost}
 				isOpen={isOpen}
 				toggleModal={toggleModal}
-			/>
+			/> */}
 		</div>
 	)
 }
